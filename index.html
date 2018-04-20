@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Find Closest Computer Store</title>
+        <link rel="stylesheet" href="css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+        <body>
+            <div id="wrapper">
+
+            <!-- The header contains the search bar, distance drop-down menu, and the 'Find Nearest' button -->
+            <header>
+                <input type="text" name="userAddress" data-bind="value: userAddress" value="" id="user_address" placeholder="Enter Address Here">
+                <select id="search_range" data-bind="value: selected_dist">
+                    <option value="5">5 Miles</option>
+                    <option value="10">10 Miles</option>
+                    <option value="15">15 Miles</option>
+                    <option value="20">20 Miles</option>
+                    <option value="25">25 Miles</option>
+                </select>
+                <button type="button" name="button" id="nearest_button" data-bind="click: userorigin, findclosest}">Find Nearest</button>
+            </header>
+
+            <!-- The mapandmarker div contains the map and the locations list.  -->
+            <div id="mapandmarker">
+
+                <!-- The map div is used to display the google map -->
+                <div id="map"></div>
+
+                <!-- This is the list of location in the database -->
+                <div id="marker_container">
+                    <h3 class="logo">PC Repair Shops</h3>
+                    <p id="loadingsign" data-bind="text: loading"></p>
+                    <hr>
+                    <input type="text" id="listsearch" placeholder="Search List" data-bind="textInput: listsearch">
+                    <hr>
+                    <ul id="marker_list" data-bind="foreach: locationItems">
+                        <li class="itemsidelist" data-bind="click: function(){$parent.changedetails(title, address, review, mark); $parent.nearbyfoods(lat, lng)}">
+                            <div class="side_item">
+                                <p data-bind="text: title" class="side_storename"></p>
+                                <p data-bind="text: address" class="side_address"></p>
+                                <div class="distance_metrics">
+                                    <p data-bind="text: distance" class="side_distance"></p>
+                                    <p data-bind="text: duration" class="side_time"></p>
+                                    <div data-bind="html: $parent.button_code, click: function(){$parent.directions(address);}" class="buttonHolder"></div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- This div that is under the mapandmarker div is used to display information about a selected location -->
+            <div id="details_container">
+                <h2 data-bind="text: $data.shopname" id='name'></h2>
+                <h4 data-bind="text: $data.humanaddress" id='humanlocation'></h4>
+                <p data-bind="text: $data.userreview" id='review'></p>
+            </div>
+            <hr>
+
+            <!-- This fourcontainer div is used with a FourSquare api to display nearby restaurants near a selected location -->
+            <div id="fourcontainer">
+                <h3 data-bind="text: nearbyPlaces"></h3>
+                <ul class="fourplaces" data-bind="foreach: foodplaces">
+                    <li class="foodlistings">
+                        <div class="fourFoods">
+                            <h4 data-bind="text: name"></h4>
+                            <p data-bind="text: address"></p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            </div>
+
+            <!-- This connects to the google maps api, and
+            allows the page to load first -->
+            <script src="js/jquery-3.3.1.min.js"></script>
+            <script src='js/knockout-3.4.2.js'></script>
+            <script src="js/app.js"></script>
+            <link href="https://fonts.googleapis.com/css?family=Titillium+Web:300" rel="stylesheet">
+            <script async defer onerror="mapsError()"
+                src="https://maps.googleapis.com/maps/api/js?&libraries=places,geometry&key=APIR_KEY_HERE!!!!&v=3&callback=initMap">
+            </script>
+        </body>
+</html>
