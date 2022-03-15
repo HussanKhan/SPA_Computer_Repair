@@ -1,3 +1,5 @@
+![alt text](https://raw.githubusercontent.com/HussanKhan/SPA_CR/master/homepage.PNG)
+
 # About
 This is a website that lists computer repair shops near my neighborhood.
 The site can also be used to find the closest shops near an entered address,
